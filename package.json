@@ -1,0 +1,27 @@
+{
+  "name": "rekt",
+  "version": "1.0.0",
+  "description": "More verbose and readable regular expressions",
+  "main": "rekt.js",
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "^2.2.5"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JonAbrams/rekt.git"
+  },
+  "keywords": [
+    "regex",
+    "js"
+  ],
+  "author": "Jon Abrams",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JonAbrams/rekt/issues"
+  },
+  "homepage": "https://github.com/JonAbrams/rekt"
+}
