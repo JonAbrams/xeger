@@ -9,9 +9,19 @@ Rekt.prototype.literal = function (str, options) {
   this.insert(escape(str));
   this.insertOptions(options);
 };
-Rekt.prototype.any = function (str, options) {};
-Rekt.prototype.set = function (str, options) {};
-Rekt.prototype.notSet = function (str, options) {};
+Rekt.prototype.any = function (str, options) {
+  if (typeof str === 'string') {
+    this.insert('[' + str + ']');
+  } else {
+    options = str;
+    this.insert('.');
+  }
+  this.insertOptions(options);
+};
+Rekt.prototype.not = function (str, options) {
+  this.insert('[^' + escape(str) + ']');
+  this.insertOptions(options);
+};
 Rekt.prototype.group = function (cb, options) {};
 Rekt.prototype.regex = function () {
   return new RegExp(this.regexStr);
