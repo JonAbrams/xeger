@@ -1,49 +1,50 @@
 var Rekt = function (cb) {
-  this.index = 0;
   this.regexStr = '';
 
   cb(this);
 };
 
 Rekt.prototype.literal = function (str, options) {
-  this.insert(escape(str));
-  this.insertOptions(options);
+  this.add(escape(str));
+  this.addOptions(options);
 };
 Rekt.prototype.any = function (str, options) {
   if (typeof str === 'string') {
-    this.insert('[' + str + ']');
+    this.add('[' + str + ']');
   } else {
     options = str;
-    this.insert('.');
+    this.add('.');
   }
-  this.insertOptions(options);
+  this.addOptions(options);
 };
 Rekt.prototype.not = function (str, options) {
-  this.insert('[^' + escape(str) + ']');
-  this.insertOptions(options);
+  this.add('[^' + escape(str) + ']');
+  this.addOptions(options);
 };
-Rekt.prototype.group = function (cb, options) {};
+Rekt.prototype.group = function (cb, options) {
+  this.add('(');
+  cb(this);
+  this.add(')');
+  this.addOptions(options);
+};
 Rekt.prototype.regex = function () {
   return new RegExp(this.regexStr);
 };
-Rekt.prototype.insertOptions = function (options) {
+Rekt.prototype.addOptions = function (options) {
   options = options || {};
 
   if (options.multiple && options.optional) {
-    this.insert('*');
+    this.add('*');
   } else if (options.multiple) {
-    this.insert('+');
+    this.add('+');
   } else if (options.optional) {
-    this.insert('?');
+    this.add('?');
   }
 };
 
 /* not public, do not use externally */
-Rekt.prototype.insert = function (str) {
-  var left = this.regexStr.slice(0, this.index);
-  var right = this.regexStr.slice(this.index);
-  this.regexStr = left + str + right;
-  this.index += str.length;
+Rekt.prototype.add = function (str) {
+  this.regexStr += str;
 };
 
 var escape = function (str) {

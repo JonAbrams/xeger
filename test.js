@@ -64,6 +64,21 @@ describe('rekt', function () {
     });
   });
 
+  describe('groups', function () {
+    var regex = rekt(function (r) {
+      r.group(function (r) {
+        r.any('abc');
+      });
+      r.group(function (r) {
+        r.literal('123');
+      }, { optional: true });
+    });
+
+    it('makes the expected regex', function () {
+      assert.equal(regex.toString(), '/([abc])(123)?/');
+    });
+  });
+
   it.skip('parses a url', function () {
     var regex = rekt(function (r) {
       r.group(function (r) {
