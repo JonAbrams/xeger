@@ -21,17 +21,6 @@ describe('rekt', function () {
     it('makes the expected regex', function () {
       assert.equal(regex.toString(), '/hel+o\\?\\!?/');
     });
-
-    it('does not care about number of lllll', function () {
-      assert.equal(regex.exec('hellllo?')[0], 'hellllo?');
-      assert.equal(regex.exec('heo'), null);
-    });
-
-    it('handles options', function () {
-      assert.equal(regex.exec('helo?')[0], 'helo?');
-      assert.equal(regex.exec('helo?!')[0], 'helo?!');
-      assert.equal(regex.exec('helo?!!')[0], 'helo?!');
-    });
   });
 
   describe('wildcards', function () {
@@ -45,22 +34,6 @@ describe('rekt', function () {
 
     it('makes the expected regex', function () {
       assert.equal(regex.toString(), '/[^\\$\\%]hi.next[abc]+/');
-    });
-
-    it('supports not', function () {
-      assert.equal(regex.exec('$hi'), null);
-      assert.equal(regex.exec('%hi'), null);
-      assert.notEqual(regex.exec('&hiinexta'), null);
-    });
-
-    it('supports . wildcard', function () {
-      assert.equal(regex.exec('hhiGnexta')[0], 'hhiGnexta');
-    });
-
-    it('supports sets', function () {
-      assert.equal(regex.exec('hhiGnexta')[0], 'hhiGnexta');
-      assert.equal(regex.exec('hhiGnextbc')[0], 'hhiGnextbc');
-      assert.equal(regex.exec('hhiGnextd'), null);
     });
   });
 
