@@ -1,19 +1,19 @@
-# Rekt
+# Xeger
 
 More expressive regular expressions for JavaScript.
 
-[![Build Status](https://travis-ci.org/JonAbrams/rekt.svg)](https://travis-ci.org/JonAbrams/rekt)
+[![Build Status](https://travis-ci.org/JonAbrams/xeger.svg)](https://travis-ci.org/JonAbrams/xeger)
 
 ## Install
 
 ```
-npm install rekt
+npm install xeger
 ```
 
 ## Usage
 
 ```javascript
-var rekt = require('rekt');
+var xeger = require('xeger');
 
 /* Parsing a URL */
 
@@ -21,7 +21,7 @@ var rekt = require('rekt');
 var boringRegex= /(https?)\:\/\/([^\/]+)(.+)\?(.*)/;
 
 /* Write this! */
-var coolRegex = rekt(function (r) {
+var coolRegex = xeger(function (r) {
   /* schema */
   r.group(function (r) {
     r.literal('http');

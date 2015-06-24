@@ -1,9 +1,9 @@
-var rekt = require('./rekt');
+var xeger = require('./xeger');
 var assert = require('assert');
 
-describe('rekt', function () {
+describe('xeger', function () {
   it('parses hello literal', function () {
-    var regex = rekt(function (r) {
+    var regex = xeger(function (r) {
       r.literal('hello');
     });
     assert.equal(regex.toString(), '/hello/');
@@ -11,7 +11,7 @@ describe('rekt', function () {
   });
 
   describe('some options', function () {
-    var regex = rekt(function (r) {
+    var regex = xeger(function (r) {
       r.literal('he');
       r.literal('l', { multiple: true });
       r.literal('o?');
@@ -25,7 +25,7 @@ describe('rekt', function () {
   });
 
   describe('wildcards', function () {
-    var regex = rekt(function (r) {
+    var regex = xeger(function (r) {
       r.not('$%');
       r.literal('hi');
       r.any();
@@ -39,7 +39,7 @@ describe('rekt', function () {
   });
 
   describe('repeats', function () {
-    var regex = rekt(function (r) {
+    var regex = xeger(function (r) {
       r.literal('h', { from: 2, to: 4 });
       r.literal('i', { from: 2 });
       r.literal('!', { repeat: 2 });
@@ -51,7 +51,7 @@ describe('rekt', function () {
   });
 
   describe('groups', function () {
-    var regex = rekt(function (r) {
+    var regex = xeger(function (r) {
       r.group(function (r) {
         r.any('abc');
       });
@@ -66,7 +66,7 @@ describe('rekt', function () {
   });
 
   it('parses a url', function () {
-    var regex = rekt(function (r) {
+    var regex = xeger(function (r) {
       r.group(function (r) {
         r.literal('http');
         r.literal('s', { optional: true });
