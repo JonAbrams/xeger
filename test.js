@@ -64,6 +64,18 @@ describe('rekt', function () {
     });
   });
 
+  describe('repeats', function () {
+    var regex = rekt(function (r) {
+      r.literal('h', { from: 2, to: 4 });
+      r.literal('i', { from: 2 });
+      r.literal('!', { repeat: 2 });
+    });
+
+    it('makes the expected regex', function () {
+      assert.equal(regex.toString(), '/h{2,4}i{2,}\\!{2}/');
+    });
+  });
+
   describe('groups', function () {
     var regex = rekt(function (r) {
       r.group(function (r) {
