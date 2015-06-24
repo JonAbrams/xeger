@@ -17,6 +17,8 @@ var rekt = require('rekt');
 
 /* Instead of this */
 var boringRegex= /(https?)\:\/\/([^\/]+)(.+)\?(.*)/;
+
+/* Write this! */
 var coolRegex = rekt(function (r) {
   r.group(function (r) {
     r.literal('http');
