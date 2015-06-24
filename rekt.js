@@ -12,7 +12,18 @@ var Rekt = function (cb) {
 
 /* Public */
 Rekt.prototype.literal = function (str, options) {
+  var hasOptions = typeof options === 'object' &&
+                   Object.keys(options).length > 0 &&
+                   str.length > 1;
+  if (hasOptions) {
+    this.add('(?:');
+  }
+
   this.add(escape(str));
+
+  if (hasOptions) {
+    this.add(')');
+  }
   this.addOptions(options);
 };
 
@@ -33,6 +44,9 @@ Rekt.prototype.not = function (str, options) {
 
 Rekt.prototype.group = function (cb, options) {
   this.add('(');
+  if (options && options.ignore) {
+    this.add('?:');
+  }
   cb(this);
   this.add(')');
   this.addOptions(options);

@@ -16,10 +16,11 @@ describe('rekt', function () {
       r.literal('l', { multiple: true });
       r.literal('o?');
       r.literal('!', { optional: true });
+      r.literal('extra', { optional: true });
     });
 
     it('makes the expected regex', function () {
-      assert.equal(regex.toString(), '/hel+o\\?\\!?/');
+      assert.equal(regex.toString(), '/hel+o\\?\\!?(?:extra)?/');
     });
   });
 
@@ -56,11 +57,11 @@ describe('rekt', function () {
       });
       r.group(function (r) {
         r.literal('123');
-      }, { optional: true });
+      }, { optional: true, ignore: true });
     });
 
     it('makes the expected regex', function () {
-      assert.equal(regex.toString(), '/([abc])(123)?/');
+      assert.equal(regex.toString(), '/([abc])(?:123)?/');
     });
   });
 
