@@ -64,7 +64,7 @@ describe('rekt', function () {
     });
   });
 
-  it.skip('parses a url', function () {
+  it('parses a url', function () {
     var regex = rekt(function (r) {
       r.group(function (r) {
         r.literal('http');
@@ -83,13 +83,13 @@ describe('rekt', function () {
       });
     });
 
-    assert(regex.toString() === '/(https?):\\/\\/([^\\/]+)(.+)\\?(.*)/');
+    assert.equal(regex.toString(), '/(https?)\\:\\/\\/([^\\/]+)(.+)\\?(.*)/');
 
     var parsed = regex.exec('https://www.google.com/search?q=my_search');
-    assert(parsed[0] === 'https://www.google.com/search?q=my_search');
-    assert(parsed[1] === 'https');
-    assert(parsed[2] === 'www.google.com');
-    assert(parsed[3] === '/search');
-    assert(parsed[4] === 'q=my_search');
+    assert.equal(parsed[0], 'https://www.google.com/search?q=my_search');
+    assert.equal(parsed[1], 'https');
+    assert.equal(parsed[2], 'www.google.com');
+    assert.equal(parsed[3], '/search');
+    assert.equal(parsed[4], 'q=my_search');
   });
 });
