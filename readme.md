@@ -15,7 +15,9 @@ npm install rekt
 ```javascript
 var rekt = require('rekt');
 
-var regex = rekt(function (r) {
+/* Instead of this */
+var boringRegex= /(https?)\:\/\/([^\/]+)(.+)\?(.*)/;
+var coolRegex = rekt(function (r) {
   r.group(function (r) {
     r.literal('http');
     r.literal('s', { optional: true });
@@ -33,7 +35,7 @@ var regex = rekt(function (r) {
   });
 });
 
-var matched = regex.exec('https://www.google.com/search?q=my_search');
+var matched = coolRegex.exec('https://www.google.com/search?q=my_search');
 ```
 matched:
 ```javascript
