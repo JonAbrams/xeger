@@ -29,7 +29,7 @@ Rekt.prototype.literal = function (str, options) {
 
 Rekt.prototype.any = function (str, options) {
   if (typeof str === 'string') {
-    this.add('[' + str + ']');
+    this.add('[' + escape(str) + ']');
   } else {
     options = str;
     this.add('.');
@@ -67,18 +67,18 @@ Rekt.prototype.addOptions = function (options) {
     this.add('+');
   } else if (options.optional) {
     this.add('?');
-  } else if (options.repeat !== undefined) {
-    this.add('{' + options.repeat + '}')
+  } else if (typeof options.repeat === 'number') {
+    this.add('{' + options.repeat + '}');
   } else if (
-             options.from !== undefined ||
-             options.to !== options.to
+             typeof options.from === 'number' ||
+             typeof options.to   === 'number'
             ) {
     this.add('{');
-    if (options.from !== undefined) {
+    if (typeof options.from === 'number') {
       this.add(options.from);
     }
     this.add(',');
-    if (options.to !== undefined) {
+    if (typeof options.to === 'number') {
       this.add(options.to);
     }
     this.add('}');
