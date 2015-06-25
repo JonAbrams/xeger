@@ -6,8 +6,6 @@ Pronounced "zeeger"
 
 [![Build Status](https://travis-ci.org/JonAbrams/xeger.svg)](https://travis-ci.org/JonAbrams/xeger)
 
-Regular expressions (e.g. regex)
-
 ## Install
 
 Use npm. If you're targeting the browser, use Browserify.
