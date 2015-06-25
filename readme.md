@@ -4,7 +4,7 @@ More expressive regular expressions for JavaScript.
 
 Pronounced "zeeger"
 
-[![Build Status](https://travis-ci.org/JonAbrams/xegex.svg)](https://travis-ci.org/JonAbrams/xeger)
+[![Build Status](https://travis-ci.org/JonAbrams/xeger.svg)](https://travis-ci.org/JonAbrams/xeger)
 
 Regular expressions (e.g. regex)
 
