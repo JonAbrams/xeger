@@ -146,5 +146,5 @@ xeger(function (x) {
   x.literal('123', { multiple: true });
   x.literal('!', { from: 2, to: 3 });
   x.literal('$', { repeat: 5 });
-}); /* returns /a?.*(?:123)+\!{2,3}\${5} */
+}); /* returns /a?.*(?:123)+\!{2,3}\${5}/ */
 ```
