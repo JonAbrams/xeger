@@ -1,17 +1,17 @@
 module.exports = function (cb) {
-  var r = new Rekt(cb);
+  var r = new Xeger(cb);
 
   return r.regex();
 };
 
 
-var Rekt = function (cb) {
+var Xeger = function (cb) {
   this.regexStr = '';
-  cb(this);
+  cb.call(this, this);
 };
 
 /* Public */
-Rekt.prototype.literal = function (str, options) {
+Xeger.prototype.literal = function (str, options) {
   var hasOptions = typeof options === 'object' &&
                    Object.keys(options).length > 0 &&
                    str.length > 1;
@@ -27,7 +27,7 @@ Rekt.prototype.literal = function (str, options) {
   this.addOptions(options);
 };
 
-Rekt.prototype.any = function (str, options) {
+Xeger.prototype.any = function (str, options) {
   if (typeof str === 'string') {
     this.add('[' + escape(str) + ']');
   } else {
@@ -37,28 +37,28 @@ Rekt.prototype.any = function (str, options) {
   this.addOptions(options);
 };
 
-Rekt.prototype.not = function (str, options) {
+Xeger.prototype.not = function (str, options) {
   this.add('[^' + escape(str) + ']');
   this.addOptions(options);
 };
 
-Rekt.prototype.group = function (cb, options) {
+Xeger.prototype.group = function (cb, options) {
   this.add('(');
   if (options && options.ignore) {
     this.add('?:');
   }
-  cb(this);
+  cb.call(this, this);
   this.add(')');
   this.addOptions(options);
 };
 
 /* Private */
 
-Rekt.prototype.regex = function () {
+Xeger.prototype.regex = function () {
   return new RegExp(this.regexStr);
 };
 
-Rekt.prototype.addOptions = function (options) {
+Xeger.prototype.addOptions = function (options) {
   options = options || {};
 
   if (options.multiple && options.optional) {
@@ -85,7 +85,7 @@ Rekt.prototype.addOptions = function (options) {
   }
 };
 
-Rekt.prototype.add = function (str) {
+Xeger.prototype.add = function (str) {
   this.regexStr += str;
 };
 

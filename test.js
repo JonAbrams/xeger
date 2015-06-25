@@ -65,6 +65,16 @@ describe('xeger', function () {
     });
   });
 
+  describe('callback context', function () {
+    var regex = xeger(function () {
+      this.literal('hi');
+    });
+
+    it('works', function () {
+      assert.equal(regex.toString(), '/hi/');
+    });
+  });
+
   it('parses a url', function () {
     var regex = xeger(function (r) {
       r.group(function (r) {
