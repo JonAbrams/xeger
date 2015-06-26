@@ -27,6 +27,24 @@ Xeger.prototype.literal = function (str, options) {
   this.addOptions(options);
 };
 
+Xeger.prototype.alphanumeric = function (options) {
+  this.add('\\w');
+  this.addOptions(options);
+};
+
+Xeger.prototype.number = function (options) {
+  this.add('\\d');
+  this.addOptions(options);
+};
+
+Xeger.prototype.start = function () {
+  this.add('^');
+};
+
+Xeger.prototype.end = function () {
+  this.add('$');
+};
+
 Xeger.prototype.any = function (str, options) {
   if (typeof str === 'string') {
     this.add('[' + escape(str) + ']');

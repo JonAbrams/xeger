@@ -2,12 +2,15 @@ var xeger = require('./xeger');
 var assert = require('assert');
 
 describe('xeger', function () {
-  it('parses hello literal', function () {
+  it('literals', function () {
     var regex = xeger(function (r) {
+      r.start();
       r.literal('hello');
+      r.alphanumeric();
+      r.number();
+      r.end();
     });
-    assert.equal(regex.toString(), '/hello/');
-    assert.equal(regex.exec('hello')[0], 'hello');
+    assert.equal(regex.toString(), '/^hello\\w\\d$/');
   });
 
   describe('some options', function () {
@@ -77,6 +80,7 @@ describe('xeger', function () {
 
   it('parses a url', function () {
     var regex = xeger(function (r) {
+      r.start();
       r.group(function (r) {
         r.literal('http');
         r.literal('s', { optional: true });
@@ -92,9 +96,10 @@ describe('xeger', function () {
       r.group(function (r) {
         r.any({ multiple: true, optional: true });
       });
+      r.end();
     });
 
-    assert.equal(regex.toString(), '/(https?)\\:\\/\\/([^\\/]+)(.+)\\?(.*)/');
+    assert.equal(regex.toString(), '/^(https?)\\:\\/\\/([^\\/]+)(.+)\\?(.*)$/');
 
     var parsed = regex.exec('https://www.google.com/search?q=my_search');
     assert.equal(parsed[0], 'https://www.google.com/search?q=my_search');

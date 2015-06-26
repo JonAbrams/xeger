@@ -90,7 +90,7 @@ xeger(function (x) {
   x.literal('abc');
   x.any();
   x.literal('123');
-}); /* returns /abc.123/
+}); /* returns /abc.123/ */
 ```
 
 ```javascript
@@ -98,6 +98,59 @@ xeger(function (x) {
   x.any('abc');
   x.any('123');
 }); /* returns /[abc][123]/ */
+```
+
+### x.alphanumeric([options])
+
+Matches any single alpha-numeric character (i.e. letters and numbers).
+
+```javascript
+xeger(function (x) {
+  x.alphanumeric();
+}); /* returns /\w/ */
+```
+
+### x.number([options])
+
+Matches a single number character.
+
+```javascript
+xeger(function (x) {
+  x.number();
+}); /* returns /\w/ */
+```
+
+### x.whitespace([options])
+
+Matches a white-space character (e.g. tab, newline, and space)
+
+```javascript
+xeger(function (x) {
+  x.whitespace();
+}); /* returns /\s/ */
+```
+
+### x.start()
+
+Matches the start of the string.
+
+```javascript
+xeger(function (x) {
+  x.start();
+  x.literal('hi');
+}); /* returns /^hi/ */
+```
+
+### x.end()
+
+Matches the end of the string.
+
+```javascript
+xeger(function (x) {
+  x.start();
+  x.literal('hi');
+  x.end();
+}); /* returns /^hi$/ */
 ```
 
 ### x.not([string], [options])
