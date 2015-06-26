@@ -36,8 +36,22 @@ describe('xeger', function () {
       r.any('abc', { multiple: true });
     });
 
-    it('makes the expected regex', function () {
+    var regex2 = xeger(function (r) {
+      r.any(function () {
+        r.literal('A');
+        r.to();
+        r.literal('Z');
+      });
+      r.not(function () {
+        r.literal('0');
+        r.to();
+        r.literal('9');
+      })
+    });
+
+    it('makes the expected regexes', function () {
       assert.equal(regex.toString(), '/[^\\$\\%]hi.next[abc]+/');
+      assert.equal(regex2.toString(), '/[A-Z][^0-9]/');
     });
   });
 

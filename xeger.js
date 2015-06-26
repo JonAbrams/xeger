@@ -45,9 +45,18 @@ Xeger.prototype.end = function () {
   this.add('$');
 };
 
+Xeger.prototype.to = function () {
+  this.add('-');
+};
+
 Xeger.prototype.any = function (str, options) {
   if (typeof str === 'string') {
     this.add('[' + escape(str) + ']');
+  } else if (typeof str === 'function') {
+    var cb = str;
+    this.add('[');
+    cb.call(this, this);
+    this.add(']');
   } else {
     options = str;
     this.add('.');
@@ -56,7 +65,14 @@ Xeger.prototype.any = function (str, options) {
 };
 
 Xeger.prototype.not = function (str, options) {
-  this.add('[^' + escape(str) + ']');
+  if (typeof str === 'string') {
+    this.add('[^' + escape(str) + ']');
+  } else if (typeof str === 'function') {
+    var cb = str;
+    this.add('[^');
+    cb.call(this, this);
+    this.add(']');
+  }
   this.addOptions(options);
 };
 

@@ -81,7 +81,7 @@ xeger(function (x) {
 }); /* returns /exact\?\!/ to the regex */
 ```
 
-### x.any([string|optional], [options])
+### x.any([string|function|optional], [options])
 
 Without a parameter, will match any single character. If you pass in a string, it's match any of the characters in the string.
 
@@ -96,9 +96,35 @@ xeger(function (x) {
 ```javascript
 xeger(function (x) {
   x.any('abc');
-  x.any('123');
-}); /* returns /[abc][123]/ */
+  x.any(function () {
+    x.literal('A');
+    x.to();
+    x.literal('Z');
+  });
+}); /* returns /[abc][A-Z]/ */
 ```
+
+### x.not([string|function], [options])
+
+The inverse of `any`. Creates a set of characters to not match against.
+
+```javascript
+xeger(function (x) {
+  x.literal('abc');
+  x.not('xyz');
+  x.not(function () {
+    x.literal('0');
+    x.to();
+    x.literal('9');
+  });
+}); /* returns /abc[^xyz][^0-9]/ */
+```
+
+### x.to()
+
+Used to create the '-' inside *any* and *not* functions.
+
+If you were to just do `x.any('A-Z')` the `-` would be escaped: `/[A\-Z]/`
 
 ### x.alphanumeric([options])
 
@@ -151,18 +177,6 @@ xeger(function (x) {
   x.literal('hi');
   x.end();
 }); /* returns /^hi$/ */
-```
-
-### x.not([string], [options])
-
-The inverse of `any`. Creates a set of characters to not match against.
-
-```javascript
-xeger(function (x) {
-  x.literal('abc');
-  x.not('xyz');
-  x.any('123');
-}); /* returns /abc[^xyz][123]/ */
 ```
 
 ### x.group([function], [options])
