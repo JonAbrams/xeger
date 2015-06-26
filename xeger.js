@@ -54,6 +54,11 @@ Xeger.prototype.newline = function (options) {
   this.addOptions(options);
 };
 
+Xeger.prototype.whitespace = function(options){
+  this.add('\\s');
+  this.addOptions(options);
+};
+
 Xeger.prototype.start = function () {
   this.add('^');
 };
