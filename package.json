@@ -1,8 +1,8 @@
 {
   "name": "xeger",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "More verbose and readable regular expressions",
-  "main": "rekt.js",
+  "main": "xeger.js",
   "dependencies": {},
   "devDependencies": {
     "mocha": "^2.2.5"
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/JonAbrams/rekt.git"
+    "url": "https://github.com/JonAbrams/xeger.git"
   },
   "keywords": [
     "regex",
