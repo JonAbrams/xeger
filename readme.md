@@ -63,13 +63,19 @@ matched:
 
 ## API
 
-### xeger([function])
+### xeger([function], [options])
 
 Call this to start the construction of the regex, passing in a callback function. It returns a RegExp object.
 
 Use the rest of the functions in this section (the *rule* functions) to construct a regex by calling them within the callback.
 
 The callback function will be called with one parameter, the xeger object. The rest of the functions here should be called on the xeger object. The callback is also called with the xeger object assigned to `this`.
+
+The options object passed here is different from the options object used in the rest of the API. This one takes the following keys:
+
+- **global**: [boolean] - Will attempt to match the regex multiple times.
+- **multiline**: [boolean] - Will attempt to match the regex multiple times.
+- **insensitive**: [boolean] - Case insensitive matching.
 
 ### x.literal([string], [options])
 
@@ -122,13 +128,13 @@ xeger(function (x) {
 
 ### x.to()
 
-Used to create the '-' inside *any* and *not* functions.
+Used to create the '-' inside *any* and *not* functions (see examples for *any* and *not*).
 
 If you were to just do `x.any('A-Z')` the `-` would be escaped: `/[A\-Z]/`
 
 ### x.alphanumeric([options])
 
-Matches any single alpha-numeric character (i.e. letters and numbers).
+Matches any single alpha-numeric character (includes letters, numbers, and the underscore).
 
 ```javascript
 xeger(function (x) {
@@ -154,6 +160,16 @@ Matches a white-space character (e.g. tab, newline, and space)
 xeger(function (x) {
   x.whitespace();
 }); /* returns /\s/ */
+```
+
+### x.newline([options])
+
+Matches a newline character
+
+```javascript
+xeger(function (x) {
+  x.newline();
+}); /* returns /\n/ */
 ```
 
 ### x.start()

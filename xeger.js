@@ -1,12 +1,24 @@
-module.exports = function (cb) {
-  var r = new Xeger(cb);
+module.exports = function (cb, options) {
+  var r = new Xeger(cb, options);
 
   return r.regex();
 };
 
 
-var Xeger = function (cb) {
+var Xeger = function (cb, options) {
+  options = options || {};
   this.regexStr = '';
+  this.flags = '';
+
+  if (options.multiline) {
+    this.flags += 'm';
+  }
+  if (options.global) {
+    this.flags += 'g';
+  }
+  if (options.insensitive) {
+    this.flags += 'i';
+  }
   cb.call(this, this);
 };
 
@@ -34,6 +46,11 @@ Xeger.prototype.alphanumeric = function (options) {
 
 Xeger.prototype.number = function (options) {
   this.add('\\d');
+  this.addOptions(options);
+};
+
+Xeger.prototype.newline = function (options) {
+  this.add('\\n');
   this.addOptions(options);
 };
 
@@ -89,7 +106,7 @@ Xeger.prototype.group = function (cb, options) {
 /* Private */
 
 Xeger.prototype.regex = function () {
-  return new RegExp(this.regexStr);
+  return new RegExp(this.regexStr, this.flags);
 };
 
 Xeger.prototype.addOptions = function (options) {

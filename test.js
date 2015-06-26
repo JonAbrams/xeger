@@ -8,9 +8,24 @@ describe('xeger', function () {
       r.literal('hello');
       r.alphanumeric();
       r.number();
+      r.newline();
       r.end();
     });
-    assert.equal(regex.toString(), '/^hello\\w\\d$/');
+    assert.equal(regex.toString(), '/^hello\\w\\d\\n$/');
+  });
+
+  describe('flags', function () {
+    var regex = xeger(function (r) {
+      r.literal('hi');
+    }, {
+      global: true,
+      multiline: true,
+      insensitive: true
+    });
+
+    it('adds flags', function () {
+      assert.equal(regex.toString(), '/hi/gim');
+    });
   });
 
   describe('some options', function () {
