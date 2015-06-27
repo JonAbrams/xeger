@@ -153,7 +153,7 @@ declare function xeger(callback: (object: xeger) => void): RegExp;
  */
 declare function xeger(callback: (object: xeger) => void, options: xeger.ConstructorOptions): RegExp;
 
-declare function xeger(options: xeger.ConstructorOptions): RegExp;
+declare function xeger(options: xeger.ConstructorOptions): xeger;
 
 /**
  * Export for AMD loaders
