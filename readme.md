@@ -268,3 +268,9 @@ xeger ->
     @literal('a').to().literal('z')
 # Returns /[a-z]/
 ```
+
+## Other languages
+
+- [Typescript](https://github.com/aholmes/xeger.ts) by [@aholmes](https://github.com/aholmes)
+
+If you port this library to another language, please modify this section with a PR!
