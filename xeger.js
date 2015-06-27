@@ -1,7 +1,14 @@
 module.exports = function (cb, options) {
+  if (typeof cb !== 'function') {
+    options = cb;
+  }
   var r = new Xeger(cb, options);
 
-  return r.regex();
+  if (typeof cb === 'function') {
+    return r.regex();
+  } else {
+    return r;
+  }
 };
 
 
@@ -19,7 +26,9 @@ var Xeger = function (cb, options) {
   if (options.insensitive) {
     this.flags += 'i';
   }
-  cb.call(this, this);
+  if (typeof cb === 'function') {
+    cb.call(this, this);
+  }
 };
 
 /* Public */
@@ -37,38 +46,54 @@ Xeger.prototype.literal = function (str, options) {
     this.add(')');
   }
   this.addOptions(options);
+
+  return this;
 };
 
 Xeger.prototype.alphanumeric = function (options) {
   this.add('\\w');
   this.addOptions(options);
+
+  return this;
 };
 
 Xeger.prototype.number = function (options) {
   this.add('\\d');
   this.addOptions(options);
+
+  return this;
 };
 
 Xeger.prototype.newline = function (options) {
   this.add('\\n');
   this.addOptions(options);
+
+  return this;
 };
 
 Xeger.prototype.whitespace = function(options){
   this.add('\\s');
   this.addOptions(options);
+
+  return this;
 };
 
 Xeger.prototype.start = function () {
   this.add('^');
+
+  return this;
 };
 
 Xeger.prototype.end = function () {
   this.add('$');
+
+  return this;
 };
 
 Xeger.prototype.to = function () {
   this.add('-');
+
+  return this;
 };
 
 Xeger.prototype.any = function (str, options) {
@@ -84,6 +109,8 @@ Xeger.prototype.any = function (str, options) {
     this.add('.');
   }
   this.addOptions(options);
+
+  return this;
 };
 
 Xeger.prototype.not = function (str, options) {
@@ -96,6 +123,8 @@ Xeger.prototype.not = function (str, options) {
     this.add(']');
   }
   this.addOptions(options);
+
+  return this;
 };
 
 Xeger.prototype.group = function (cb, options) {
@@ -106,13 +135,15 @@ Xeger.prototype.group = function (cb, options) {
   cb.call(this, this);
   this.add(')');
   this.addOptions(options);
-};
 
-/* Private */
+  return this;
+};
 
 Xeger.prototype.regex = function () {
   return new RegExp(this.regexStr, this.flags);
 };
+
+/* Private */
 
 Xeger.prototype.addOptions = function (options) {
   options = options || {};

@@ -9,9 +9,10 @@ describe('xeger', function () {
       r.alphanumeric();
       r.number();
       r.newline();
+      r.whitespace();
       r.end();
     });
-    assert.equal(regex.toString(), '/^hello\\w\\d\\n$/');
+    assert.equal(regex.toString(), '/^hello\\w\\d\\n\\s$/');
   });
 
   describe('flags', function () {
@@ -104,6 +105,16 @@ describe('xeger', function () {
 
     it('works', function () {
       assert.equal(regex.toString(), '/hi/');
+    });
+  });
+
+  describe('chaining', function () {
+    var regex = xeger({ global: true }).start().literal('abc').any(function () {
+      this.literal('A').to().literal('Z');
+    }).regex();
+
+    it('makes the expected regex', function () {
+      assert.equal(regex.toString(), '/^abc[A-Z]/g');
     });
   });
 

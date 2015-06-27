@@ -132,6 +132,8 @@ Used to create the '-' inside *any* and *not* functions (see examples for *any* 
 
 If you were to just do `x.any('A-Z')` the `-` would be escaped: `/[A\-Z]/`
 
+See the "Chaining" section below for a different syntax that makes using `.to()` less clunky.
+
 ### x.alphanumeric([options])
 
 Matches any single alpha-numeric character (includes letters, numbers, and the underscore).
@@ -212,7 +214,7 @@ xeger(function (x) {
 });  /* returns /(abc)(?:[123])/ */
 ```
 
-### options
+### Options
 
 You can pass in a few options to the above rule functions.
 
@@ -230,4 +232,39 @@ xeger(function (x) {
   x.literal('!', { from: 2, to: 3 });
   x.literal('$', { repeat: 5 });
 }); /* returns /a?.*(?:123)+\!{2,3}\${5}/ */
+```
+
+### Chaining, and `this`
+
+Xeger offers a few alternative ways to construct a regex.
+
+#### Chaining
+
+Each rule function returns a copy of Xeger object, allowing you to chain rule calls.
+
+```javascript
+xeger(function (x) {
+  x.any(function () {
+    x.literal('A').to().literal('Z');
+  });
+}); /* Returns /[A-Z]/ */
+```
+
+If you call `xeger()` without giving it a callback function, it will return a fresh Xeger object, allowing you to chain calls. In this case, call `.regex()` at the end to get the final RegExp object out of it.
+
+```javascript
+xeger().start().any(function () {
+  x.literal('A').to().literal('Z');
+}).regex(); /* Returns /[A-Z]/ */
+```
+
+#### this and @
+
+Instead of relying on the `x` parameter given to each rule callback, you can use the `this` object. This is handy if using CoffeeScript (which has the `@` shorthand to represent `this.`):
+
+```coffeescript
+xeger ->
+  @any ->
+    @literal('a').to().literal('z')
+# Returns /[a-z]/
 ```

@@ -1,6 +1,6 @@
 {
   "name": "xeger",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "More verbose and readable regular expressions",
   "main": "xeger.js",
   "dependencies": {},
