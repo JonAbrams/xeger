@@ -151,7 +151,9 @@ declare function xeger(callback: (object: xeger) => void): RegExp;
 /**
  * The options object passed here is different from the options object used in the rest of the API.This one takes the following keys:
  */
-declare function xeger(callback: (Object: xeger) => void, options: xeger.ConstructorOptions): RegExp;
+declare function xeger(callback: (object: xeger) => void, options: xeger.ConstructorOptions): RegExp;
+
+declare function xeger(options: xeger.ConstructorOptions): RegExp;
 
 /**
  * Export for AMD loaders
